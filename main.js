@@ -86,7 +86,7 @@ barba.init({
         {
             namespace: "home",
             beforeEnter(data) {
-                globalInstance = new Global(data.next.container);
+                //globalInstance = new Global(data.next.container);
                 setupLenis();
             },
             afterEnter(data) {
