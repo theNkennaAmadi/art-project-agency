@@ -6,11 +6,10 @@ export class Home {
 		this.init()
 
 		this.heroSection()
+		this.clientsMarquee()
 	}
 
-	init() {
-		// console.log('Home')
-	}
+	init() {}
 
 	heroSection() {
 		const centerX = -1.5
@@ -40,6 +39,26 @@ export class Home {
 				},
 				'-=.5'
 			)
+	}
+
+	clientsMarquee() {
+		const marquees = document.querySelectorAll('.cl-marquee')
+
+		marquees.forEach((marquee, index) => {
+			const clone = marquee.cloneNode(true)
+
+			marquee.parentNode.appendChild(clone)
+
+			// const isEven = index % 2 === 0
+			// const direction = isEven ? '-100%' : '100%'
+
+			gsap.timeline({ repeat: -1 }).to([marquee, clone], {
+				y: '-100%',
+				duration: 10,
+				ease: 'none',
+				stagger: 0,
+			})
+		})
 	}
 }
 
