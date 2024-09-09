@@ -1,0 +1,17 @@
+.page-wrapper{
+    background-color: var(--black);
+}
+
+#unicorn{
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container{
+    position: relative;
+    z-index: 1;
+}
+
+.trailer-item{
+    opacity: 0;
+}

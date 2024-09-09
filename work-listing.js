@@ -11,12 +11,14 @@ export class WorkListing {
     }
 
     init() {
+        console.log(Swiper)
         this.initSwiper();
         gsap.set('.work-name-list', { opacity: 1 });
         this.initTextAnimation();
     }
 
     initSwiper() {
+        gsap.to('.main', {opacity:1})
         this.swiper = new Swiper(".swiper", {
             effect: "cube",
             grabCursor: true,

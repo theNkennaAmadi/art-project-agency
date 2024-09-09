@@ -7,14 +7,22 @@ export class About{
         this.container = container
         this.heroSpans = this.container.querySelectorAll('.h-span.cl')
         this.trailerItem = this.container.querySelectorAll('.trailer-item')
+        this.teamItems = this.container.querySelectorAll('.team-item')
+        this.sceneList = document.querySelector('.scene-list');
+        this.sceneItems = document.querySelectorAll('.scene-visual');
         this.init()
     }
+
     init(){
+        gsap.to('.main', {opacity:1})
+        gsap.set(this.trailerItem, {opacity:1})
         gsap.from(this.trailerItem, {scale: 4, duration:3, ease: 'expo.out'})
         this.heroSpans.forEach(span => {
             gsap.to(span.querySelectorAll('.char'), {clipPath: 'inset(0% 0% 0% 100%)', duration: 0.75, delay: 1})
         })
         this.initScroller()
+        this.revealTeam()
+        //this.createParallaxEffect()
     }
 
     initScroller(){
@@ -74,6 +82,57 @@ export class About{
         };
 
         scrollEffect(contentWithSVG[0]);
+    }
+
+    revealTeam(){
+
+        this.teamItems.forEach(item => {
+            const tl = gsap.timeline({paused: true})
+            tl.to(item.querySelector('img'), {filter: 'grayscale(90%)',scale: 1, ease: 'expo', duration: 0.7, })
+                //.to(item.querySelector('img'), {duration: 1.5, scaleX: 1,  ease: 'expo'}, "<")
+                .fromTo(item.querySelector('.card__box'), { opacity: 0, scale: 0, rotation: -10}, {opacity: 1, scale: 1, rotation: 0, stagger: 0.08}, "<")
+
+            item.addEventListener('mouseenter', () => {
+                tl.play()
+            })
+            item.addEventListener('mouseleave', () => {
+                tl.reverse()
+            })
+
+            gsap.from(item, {clipPath: 'inset(0% 100% 100% 0%)', duration: 2, ease: 'expo.out', transformOrigin: 'top left',
+                scrollTrigger: {
+                    trigger: item.parentElement,
+                    start: 'top 75%',
+                    end: 'top 50%',
+                }
+            })
+        })
+    }
+
+    createParallaxEffect() {
+        this.sceneItems.forEach((item, index) => {
+            const direction = index % 2 === 0 ? 1 : -1; // Alternate direction
+            const speed = 0.4 + (index * 0.1); // Varying speeds
+
+            gsap.to(item, {
+                yPercent: direction * 100, // Move 100px in alternating directions
+                ease: "none",
+                scrollTrigger: {
+                    trigger: this.sceneList,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                    invalidateOnRefresh: true,
+                    onUpdate: self => {
+                        gsap.to(item, {
+                            yPercent: direction * 100 * self.progress * speed,
+                            overwrite: 'auto',
+                            duration: 0.2
+                        });
+                    }
+                }
+            });
+        });
     }
 
 }

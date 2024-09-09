@@ -109,7 +109,7 @@ export class Global {
         links.forEach(link => {
             const linkText = link.querySelectorAll('.char')
             const tllink = gsap.timeline({paused: true});
-            tllink.to(linkText, {yPercent: -100, duration: 0.8, ease: 'power4.out', stagger: {amount: 0.1}});
+            tllink.fromTo(linkText, {yPercent: 0},{yPercent: -100, duration: 0.8, ease: 'power4.out', stagger: {amount: 0.1}});
             link.addEventListener('mouseover', () => {
                 tllink.timeScale(1)
                 tllink.play()
@@ -170,6 +170,90 @@ export class CursorFollower {
             });
         });
     }
+}
+
+
+export class CursorFollower2 {
+    constructor(container) {
+        this.container = container;
+        this.cursor = this.container.querySelector('.cursor');
+        this.pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        this.mouse = { x: this.pos.x, y: this.pos.y };
+        this.speed = 0.1;
+        this.isHovering = false;
+
+        this.init();
+    }
+
+    init() {
+        gsap.set(this.cursor, { xPercent: -50, yPercent: -50, scale: 0 });
+
+        this.container.addEventListener('mousemove', (e) => {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+        });
+
+        gsap.ticker.add(this.update.bind(this));
+
+        this.setupHoverEffect();
+    }
+
+    update() {
+        this.pos.x += (this.mouse.x - this.pos.x) * this.speed;
+        this.pos.y += (this.mouse.y - this.pos.y) * this.speed;
+
+        gsap.to(this.cursor, { x: this.pos.x, y: this.pos.y, ease: 'expo.out', duration: 1 });
+    }
+
+    setupHoverEffect() {
+        const workVisuals = this.container.querySelectorAll('.work-link');
+
+        workVisuals.forEach(visual => {
+            visual.addEventListener('mouseenter', () => {
+                this.isHovering = true;
+                gsap.to(this.cursor, { scale: 1, duration: 0.5, ease: 'power2.out' });
+            });
+
+            visual.addEventListener('mouseleave', () => {
+                this.isHovering = false;
+                gsap.to(this.cursor, { scale: 0, duration: 0.5, ease: 'power2.out' });
+            });
+        });
+    }
+}
+
+export class CursorFollower3 {
+    constructor(container) {
+        this.container = container;
+        this.cursor = this.container.querySelector('.cursor');
+        this.pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        this.mouse = { x: this.pos.x, y: this.pos.y };
+        this.speed = 0.1;
+        this.isHovering = false;
+
+        this.init();
+    }
+
+    init() {
+        gsap.set(this.cursor, { xPercent: -50, yPercent: -50, scale: 0 });
+
+        this.container.addEventListener('mousemove', (e) => {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+        });
+
+        gsap.ticker.add(this.update.bind(this));
+
+        this.setupHoverEffect();
+    }
+
+    update() {
+        this.pos.x += (this.mouse.x - this.pos.x) * this.speed;
+        this.pos.y += (this.mouse.y - this.pos.y) * this.speed;
+
+        gsap.to(this.cursor, { x: this.pos.x, y: this.pos.y, ease: 'expo.out', duration: 1 });
+    }
+
 }
 
 

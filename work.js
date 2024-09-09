@@ -25,9 +25,11 @@ export class Work{
     }
 
     init(){
+        gsap.to('.main', {opacity:1})
         this.setupVideoControls();
         this.setupEventListeners();
         this.setUpNextPrev()
+        this.revealNextUp()
     }
 
     setupVideoControls() {
@@ -139,5 +141,16 @@ export class Work{
                 this.nextLinkWrapper.querySelector('.work-next-category').textContent = nextCategory.textContent.trim();
             }
         }
+    }
+
+    revealNextUp(){
+        gsap.from(this.nextLink, {clipPath: 'inset(0% 100% 100% 0%)', duration: 2, ease: 'expo.out', transformOrigin: 'top left',
+            scrollTrigger: {
+                trigger: this.nextLinkWrapper,
+                start: 'top 65%',
+                end: 'top 50%',
+                //scrub: 1
+            }
+        })
     }
 }
