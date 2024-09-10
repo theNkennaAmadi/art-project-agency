@@ -2,7 +2,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
-export class About{
+export class About {
     constructor(container) {
         this.container = container
         this.heroSpans = this.container.querySelectorAll('.h-span.cl')
@@ -10,10 +10,14 @@ export class About{
         this.teamItems = this.container.querySelectorAll('.team-item')
         this.sceneList = document.querySelector('.scene-list');
         this.sceneItems = document.querySelectorAll('.scene-visual');
+        this.contentElement = this.container.querySelector('.content');
+        this.svgElement = this.contentElement.querySelector('svg');
+        this.clipPathElement = this.svgElement.querySelector('clipPath');
+        this.textElements = this.clipPathElement.querySelectorAll('text');
         this.init()
     }
 
-    init(){
+    init() {
         gsap.to('.main', {opacity:1})
         gsap.set(this.trailerItem, {opacity:1})
         gsap.from(this.trailerItem, {scale: 4, duration:3, ease: 'expo.out'})
@@ -22,22 +26,37 @@ export class About{
         })
         this.initScroller()
         this.revealTeam()
-        //this.createParallaxEffect()
+        this.convertUnits()
+        window.addEventListener('resize', this.handleResize.bind(this))
     }
 
-    initScroller(){
+    convertUnits() {
+        const vwToPx = (vw) => {
+            return (vw * window.innerWidth) / 100;
+        }
+
+        this.textElements.forEach(textElement => {
+            const xInVw = parseFloat(textElement.getAttribute('x'));
+            const xInPx = vwToPx(xInVw);
+            textElement.setAttribute('x', `${xInPx}px`);
+        });
+    }
+
+    handleResize() {
+        //this.convertUnits();
+    }
+
+    initScroller() {
         const contentWithSVG = Array.from(document.querySelectorAll('.content')).filter(element => {
             return element.querySelector(':scope svg') !== null;
         });
 
         const scrollEffect = (contentElement) => {
-
             const clipPath = contentElement.querySelectorAll('svg clipPath');
             const poster = contentElement.querySelectorAll('.poster');
             const posterInner = contentElement.querySelectorAll('.poster__inner');
 
             [...clipPath].forEach((clipPathEl, pos) => {
-
                 const texts = clipPathEl.querySelectorAll('text');
 
                 gsap.timeline({
@@ -45,6 +64,7 @@ export class About{
                         trigger: poster[pos],
                         start: 'top bottom',
                         end: 'bottom top',
+                        invalidateOnRefresh: true,
                         scrub: true
                     }
                 })
@@ -77,19 +97,16 @@ export class About{
                         scaleX: 1,
                         scaleY: 1
                     }, 0);
-
             });
         };
 
         scrollEffect(contentWithSVG[0]);
     }
 
-    revealTeam(){
-
+    revealTeam() {
         this.teamItems.forEach(item => {
             const tl = gsap.timeline({paused: true})
-            tl.to(item.querySelector('img'), {filter: 'grayscale(90%)',scale: 1, ease: 'expo', duration: 0.7, })
-                //.to(item.querySelector('img'), {duration: 1.5, scaleX: 1,  ease: 'expo'}, "<")
+            tl.to(item.querySelector('img'), {filter: 'grayscale(90%)', scale: 1, ease: 'expo', duration: 0.7, })
                 .fromTo(item.querySelector('.card__box'), { opacity: 0, scale: 0, rotation: -10}, {opacity: 1, scale: 1, rotation: 0, stagger: 0.08}, "<")
 
             item.addEventListener('mouseenter', () => {
@@ -108,31 +125,4 @@ export class About{
             })
         })
     }
-
-    createParallaxEffect() {
-        this.sceneItems.forEach((item, index) => {
-            const direction = index % 2 === 0 ? 1 : -1; // Alternate direction
-            const speed = 0.4 + (index * 0.1); // Varying speeds
-
-            gsap.to(item, {
-                yPercent: direction * 100, // Move 100px in alternating directions
-                ease: "none",
-                scrollTrigger: {
-                    trigger: this.sceneList,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true,
-                    invalidateOnRefresh: true,
-                    onUpdate: self => {
-                        gsap.to(item, {
-                            yPercent: direction * 100 * self.progress * speed,
-                            overwrite: 'auto',
-                            duration: 0.2
-                        });
-                    }
-                }
-            });
-        });
-    }
-
 }
