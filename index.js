@@ -5,7 +5,7 @@ import Lenis from "@studio-freight/lenis";
 import {About} from "./about.js";
 import {WorkListing} from "./work-listing.js";
 import {Home2} from "./home.js";
-import {CursorFollower, CursorFollower3, Global, ImageRevealAnimation} from "./global.js";
+import {CursorFollower, CursorFollower2, CursorFollower3, Global, ImageRevealAnimation} from "./global.js";
 import {Work} from "./work.js";
 import {Contact} from "./contact.js";
 import {NotFound} from "./not-found.js";
@@ -139,6 +139,7 @@ barba.init({
             },
             afterEnter(data) {
                 new WorkListing(data.next.container);
+                new CursorFollower2(data.next.container);
             },
         },
         {
