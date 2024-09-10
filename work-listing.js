@@ -1,6 +1,6 @@
 import gsap from "gsap";
-//import Swiper from 'swiper';
-//import { EffectCube, Navigation } from 'swiper/modules';
+import Swiper from 'swiper';
+import { EffectCube, Navigation } from 'swiper/modules';
 
 export class WorkListing {
     constructor(container) {
@@ -23,7 +23,7 @@ export class WorkListing {
             effect: "cube",
             grabCursor: true,
             loop: true,
-            //modules: [EffectCube, Navigation],
+            modules: [EffectCube, Navigation],
             navigation: {
                 nextEl: "#sliderNext",
                 prevEl: "#sliderPrev",
