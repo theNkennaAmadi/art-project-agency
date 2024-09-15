@@ -53,6 +53,7 @@ export class Work{
         gsap.to(this.playWrapper, {opacity: 0, scale: 0, duration: 0.7})
         gsap.to(this.videoControls, {opacity: 1, duration: 0.7, pointerEvents: 'all'})
         if (this.video.paused) {
+
             this.video.play();
         }
         this.toggleMute()
@@ -60,6 +61,8 @@ export class Work{
 
     togglePlayPause() {
         if (this.video.paused) {
+            this.video.currentTime = 0;
+            console.log('play')
             this.video.play();
         } else {
             this.video.pause();

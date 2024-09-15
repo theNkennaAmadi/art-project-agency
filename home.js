@@ -10,7 +10,7 @@ export class Home2 {
         this.lenis = lenis
 
         lenis.scrollTo(0, { immediate: true })
-        lenis.stop()
+        //lenis.stop()
 
         this.init()
         this.footer = this.container.querySelector('.footer')
@@ -93,7 +93,7 @@ export class Home2 {
                 xPercent: -centerX * 150,
                 yPercent: -centerY * 150,
                 ease: 'expo.inOut',
-                delay: 1.5,
+                delay: 0.5,
                 duration: 1.75,
             })
             .to(
@@ -104,7 +104,7 @@ export class Home2 {
                 '-=.3'
             )
             .to(
-                '.home-hero-btn',
+                ['.home-hero-btn', '.home-scroll-indicator'],
                 {
                     autoAlpha: 1,
                 },
@@ -112,7 +112,7 @@ export class Home2 {
             )
             .to(result[0].chars, {
                 autoAlpha: 1,
-                stagger: 0.05,
+                stagger: 0.03,
                 duration: 0.5,
             })
 
@@ -175,8 +175,8 @@ export class Home2 {
         w1.forEach((element, index) => {
             gsap.fromTo(element.querySelectorAll('.char'), {yPercent: 110}, {yPercent: 0, duration: 1, stagger: 0.1, scrollTrigger:{
                     trigger: '.wa-text-wrapper',
-                    start: 'center 80%',
-                    end: 'center 50%',
+                    start: 'center 100%',
+                    end: 'center 70%',
                     scrub: true,
                     //markers: true
                 }})
@@ -187,9 +187,10 @@ export class Home2 {
 
         let tlA = gsap.timeline({scrollTrigger: {
                 trigger: '.secondary-mask-wrapper',
-                start: 'bottom 90%',
-                end: 'bottom 70%',
+                start: 'bottom 100%',
+                end: 'bottom 95%',
                 scrub: 1,
+                //markers: true,
             }})
 
 
@@ -237,8 +238,8 @@ export class Home2 {
             scrollTrigger: {
                 trigger: aboutText,
                 scrub: 1,
-                start: 'top 80%',
-                end: 'top 10%',
+                start: 'top 100%',
+                end: 'top 30%',
             },
         })
     }
@@ -264,8 +265,8 @@ export class Home2 {
                         scrollTrigger: {
                             trigger: element,
                             scrub: true,
-                            start: 'top 40%',
-                            end: 'top 25%',
+                            start: 'top 60%',
+                            end: 'top 45%',
                         },
                     })
                     .fromTo(wwI[index],{clipPath: 'inset(0% 0% 100% 0%)',}, {

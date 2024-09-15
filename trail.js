@@ -87,7 +87,7 @@ export class ImageTrail {
         this.imagesTotal = this.images.length;
         this.imgPosition = 0;
         this.zIndexVal = 1;
-        this.threshold = 100;
+        this.threshold = 60;
         this.mouseTracker = new MouseTracker(this.DOM.content);
         this.render();
     }
@@ -134,11 +134,11 @@ export class ImageTrail {
                 duration: 1,
                 ease: "power1.out",
                 opacity: 0
-            }, 0.4)
+            }, 0.8)
             .to(img.DOM.el, {
                 duration: 1,
                 ease: "quint.out",
                 scale: 0.2
-            }, 0.4);
+            }, 0.8);
     }
 }
