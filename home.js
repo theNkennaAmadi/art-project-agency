@@ -1,5 +1,7 @@
 import gsap from 'gsap'
 import Splitting from 'splitting'
+import Swiper from 'swiper/bundle';
+
 
 let mmHome = gsap.matchMedia();
 
@@ -46,7 +48,7 @@ export class Home2 {
             },
         })
             .then((scene) => {
-                console.log(scene)
+                //console.log(scene)
                 // scene is ready
                 // To remove a scene, you can use:
                 // scene.destroy()
@@ -54,6 +56,19 @@ export class Home2 {
             .catch((err) => {
                 console.error(err);
             });
+
+        const swiper = new Swiper(".swiper", {
+            speed: 1000,
+            loop: true,
+            navigation: {
+                nextEl: ".sl-next",
+                prevEl: ".sl-prev",
+            },
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+        });
     }
 
 

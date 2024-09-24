@@ -62,17 +62,17 @@ export class About {
                 gsap.timeline({
                     scrollTrigger: {
                         trigger: poster[pos],
-                        start: 'top bottom',
-                        end: 'bottom top',
+                        start: 'top 90%',
+                        end: 'bottom -10%',
                         invalidateOnRefresh: true,
                         scrub: true
                     }
                 })
                     .fromTo(clipPathEl, {
-                        xPercent: pos === 0 ? 0 : -100
+                        xPercent: pos === 0 ? 0 : -200
                     }, {
                         ease: 'none',
-                        xPercent: pos === 0 ? -100 : 0
+                        xPercent: pos === 0 ? -200 : 0
                     }, 0)
                     .fromTo(poster[pos], {
                         filter: 'brightness(200%)',
