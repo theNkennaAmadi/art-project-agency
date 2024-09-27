@@ -24,7 +24,7 @@ export class Global {
 
         this.elementsToSplit.forEach((element) => {
             const originalText = element.textContent.trim();
-            element.setAttribute('aria-label', originalText);
+           // element.setAttribute('aria-label', originalText);
 
             const result = Splitting({
                 target: element,
@@ -35,11 +35,11 @@ export class Global {
             const chars = result[0].chars;
 
             words.forEach((word) => {
-                word.setAttribute('aria-hidden', 'true');
+               // word.setAttribute('aria-hidden', 'true');
             });
 
             chars.forEach((char, charIndex) => {
-                char.setAttribute('aria-hidden', 'true');
+                //char.setAttribute('aria-hidden', 'true');
             });
             gsap.set(chars, { yPercent: 110, opacity: 0 });
         });
