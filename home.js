@@ -209,25 +209,29 @@ export class Home2 {
 
         let tlA = gsap.timeline({scrollTrigger: {
                 trigger: '.secondary-mask-wrapper',
-                start: 'bottom 100%',
-                end: 'bottom 95%',
+                start: ()=> window.innerWidth > 767 ? 'bottom 100%' : 'bottom 70%',
+                end: ()=> window.innerWidth > 767 ? 'bottom 95%' : 'bottom 50%',
                 scrub: 1,
                 //markers: true,
             }})
 
 
-        tlA.to('.risk', {xPercent: -97}, "<")
+        tlA.to('.risk', {xPercent: -96.5}, "<")
             .to(riskFirst, {yPercent: 110, stagger: {from: 'end'}},"<")
-            .to('.story', {xPercent: -87}, "<")
+            .to('.story', {xPercent: -86.5}, "<")
             .to(storyChars, {opacity: 1, stagger: {from: 'start'}},"<")
+            .to('.risk', {opacity: 0})
 
-        gsap.to('.secondary-mask-wrapper', {opacity: 1, pointerEvents: 'auto', scrollTrigger:{
-            trigger: '.secondary-mask-wrapper',
+        gsap.to('.secondary-mask-wrapper', {
+            opacity: 1,
+            scrollTrigger: {
+                trigger: '.secondary-mask-wrapper',
                 start: 'top 80%',
                 end: 'top top',
                 scrub: true,
-               // markers: true
-            }})
+                markers: true
+            },
+        });
 
         gsap.to('.gl-section', {opacity: 0.1, scrollTrigger:{
                 trigger: '.gl-section',
