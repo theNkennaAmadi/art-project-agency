@@ -210,7 +210,7 @@ export class Home2 {
         let tlA = gsap.timeline({scrollTrigger: {
                 trigger: '.secondary-mask-wrapper',
                 start: ()=> window.innerWidth > 767 ? 'bottom 100%' : 'bottom 70%',
-                end: ()=> window.innerWidth > 767 ? 'bottom 95%' : 'bottom 50%',
+                end: ()=> window.innerWidth > 767 ? 'bottom 95%' : 'bottom 30%',
                 scrub: 1,
                 //markers: true,
             }})
@@ -220,7 +220,6 @@ export class Home2 {
             .to(riskFirst, {yPercent: 110, stagger: {from: 'end'}},"<")
             .to('.story', {xPercent: -86.5}, "<")
             .to(storyChars, {opacity: 1, stagger: {from: 'start'}},"<")
-            .to('.risk', {opacity: 0})
 
         gsap.to('.secondary-mask-wrapper', {
             opacity: 1,

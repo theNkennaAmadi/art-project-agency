@@ -44,6 +44,7 @@ export class WorkListing {
                 effect: "cube",
                 grabCursor: true,
                 loop: true,
+                speed: 1000,
                 modules: [EffectCube, Navigation],
                 navigation: {
                     nextEl: "#sliderNext",
@@ -135,7 +136,7 @@ export class WorkListing {
             }, { once: true });
 
             incomingVideo.setAttribute("autoplay", "true");
-            incomingVideo.load();
+            incomingVideo.play();
         }
     }
 
