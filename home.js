@@ -221,16 +221,36 @@ export class Home2 {
             .to('.story', {xPercent: -86.5}, "<")
             .to(storyChars, {opacity: 1, stagger: {from: 'start'}},"<")
 
-        gsap.to('.secondary-mask-wrapper', {
-            opacity: 1,
-            scrollTrigger: {
-                trigger: '.secondary-mask-wrapper',
-                start: 'top 80%',
-                end: 'top top',
-                scrub: true,
-               // markers: true
-            },
-        });
+
+        mmHome.add("(min-width: 768px)", () => {
+            gsap.to('.secondary-mask-wrapper', {
+                opacity: 1,
+                scrollTrigger: {
+                    trigger: '.secondary-mask-wrapper',
+                    start: 'top 80%',
+                    end: 'top top',
+                    scrub: true,
+                    // markers: true
+                },
+            });
+        })
+
+
+
+        mmHome.add("(max-width: 767px)", () => {
+            gsap.to('.secondary-mask-wrapper', {
+                opacity: 1,
+                scrollTrigger: {
+                    trigger: '.secondary-mask-wrapper',
+                    start: 'top top',
+                    end: '30% top',
+                    scrub: true,
+                    // markers: true
+                },
+            });
+        })
+
+
 
         gsap.to('.gl-section', {opacity: 0.1, scrollTrigger:{
                 trigger: '.gl-section',
@@ -240,8 +260,14 @@ export class Home2 {
                 //markers: true
             }})
 
-
-
+        gsap.to('.home-hero', {
+            opacity: 0,
+            scrollTrigger:{
+                trigger: '.home-about',
+                start: 'bottom bottom',
+                scrub: 1,
+            }
+        })
 
     }
 
